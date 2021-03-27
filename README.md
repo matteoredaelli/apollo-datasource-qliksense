@@ -1,1 +1,0 @@
-# apollo-datasource-qliksense
