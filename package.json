@@ -1,0 +1,41 @@
+{
+  "name": "apollo-datasource-qliksense",
+  "version": "0.1.0",
+  "description": "Apollo datasource for Qliksense",
+  "main": "index.js",
+  "scripts": {
+    "lint": "prettier '**/*.js' && eslint '**/*.js'",
+    "lint:fix": "prettier --write '**/*.js' && eslint --fix '**/*.js'",
+    "test": "jest"
+  },
+  "engines": {
+    "node": ">=10.6.0",
+    "npm": ">=6.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matteoredaelli/apollo-datasource-qliksense.git"
+  },
+  "keywords": [
+    "apollo",
+    "graphql",
+    "qliksense"
+  ],
+  "author": "Matteo Redaelli",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/matteoredaelli/apollo-datasource-qliksense/issues"
+  },
+  "homepage": "https://github.com/matteoredaelli/apollo-datasource-qliksense#README.org",
+  "dependencies": {
+    "apollo-datasource-rest": "^0.11.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.4.0",
+    "eslint-config-prettier": "^6.3.0",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "lint-staged": "^9.2.5",
+    "prettier": "1.18.2"
+  }
+}
