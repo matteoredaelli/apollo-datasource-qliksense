@@ -9,7 +9,9 @@
 
 ** Usage
 
-Look at the following index.js file:
+   Below a very basic sample
+
+File index.js file:
 
 #+BEGIN_SRC javascript
 const resolvers = require('./resolvers');
@@ -42,3 +44,61 @@ server.listen().then(({ url }) => {
   console.log(`🚀  Server ready at ${url}`);
 });
 #+END_SRC
+
+File schema.graphql
+
+#+BEGIN_SRC graphql
+type Json {
+     json: String
+     }
+
+type Query {
+  qliksense_entity(
+    entity: String!,
+    count: Boolean,
+    filter:String): Json
+}
+#+END_SRC
+
+File resolverrs.js
+
+#+BEGIN_SRC javascript
+module.exports = {
+  Query: {
+      qliksense_entity: async (_source, { entity, count, filter }, { dataSources }) => {
+	  resp = await dataSources.qliksense.getEntity(entity, count, filter);
+	  return {json:  JSON.stringify(resp) }
+      },
+  },
+}
+#+END_SRC
+
+Sample graphql queries
+
+#+BEGIN_SRC graphql
+{
+  qliksense_entity(
+    entity: "custompropertydefinition"
+    filter: "Name eq 'GroupAccess'"
+  ) {
+    json
+  }
+}
+
+#+END_SRC
+
+#+BEGIN_SRC graphql
+{
+  qliksense_entity(
+    entity: "user"
+    count: true
+  ) {
+    json
+  }
+}
+
+#+END_SRC
+** Qliksense graphql schema
+
+   For building an useful schema for Qliksense, I suggest the tool https://github.com/walmartlabs/json-to-simple-graphql-schema
+   With a sampel json file (foran export of customproperty

@@ -1,7 +1,7 @@
 {
   "name": "apollo-datasource-qliksense",
-  "version": "0.1.0",
-  "description": "Apollo datasource for Qliksense",
+  "version": "0.2.0",
+  "description": "Apollo datasource for Qliksense repository",
   "main": "index.js",
   "scripts": {
     "lint": "prettier '**/*.js' && eslint '**/*.js'",
