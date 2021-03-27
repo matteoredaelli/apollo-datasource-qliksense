@@ -54,13 +54,10 @@ class QliksenseDataSource extends RESTDataSource {
   async getEntity(entity, count = false, filter = null) {
     const full_or_count = count ? "count" : "full";
     let url = `/qrs/${entity}/${full_or_count}`;
-    //if (filter) {
-    //  url = url + `?filter=${filter}`;
-    //}
     const options = filter ? { params: { filter: filter } } : null;
-    console.log(options);
+    //console.log(options);
     const resp = await this.get(url, null, options); // {agent: self.sslConfiguredAgent});
-    console.log(resp);
+    //console.log(resp);
     return resp;
   }
 }
