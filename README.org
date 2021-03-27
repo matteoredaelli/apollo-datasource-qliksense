@@ -11,8 +11,7 @@
 
 A sample usage is:
 
-@@javascript:
-index.js
+@@javascript:like file index.js
 const resolvers = require('./resolvers');
 
 const { ApolloServer, gql } = require('apollo-server');
