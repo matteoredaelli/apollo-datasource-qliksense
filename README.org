@@ -60,7 +60,7 @@ type Query {
 }
 #+END_SRC
 
-File resolverrs.js
+File resolvers.js
 
 #+BEGIN_SRC javascript
 module.exports = {
@@ -98,7 +98,8 @@ Sample graphql queries
 }
 
 #+END_SRC
-** Qliksense graphql schema
 
-   For building an useful schema for Qliksense, I suggest the tool https://github.com/walmartlabs/json-to-simple-graphql-schema
-   With a sampel json file (foran export of customproperty
+** Graphql schema for Qliksense entities
+
+   I suggest the tool https://github.com/walmartlabs/json-to-simple-graphql-schema for building a graphql schema from a sample json file (an export of a Qliksense entity like app, user, custompropertydefinition, datasource, ...).
+
