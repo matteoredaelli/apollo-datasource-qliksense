@@ -9,9 +9,9 @@
 
 ** Usage
 
-A sample usage is:
+Look at the following index.js file:
 
-@@javascript:like file index.js
+#+BEGIN_SRC javascript
 const resolvers = require('./resolvers');
 
 const { ApolloServer, gql } = require('apollo-server');
@@ -41,4 +41,4 @@ const server = new ApolloServer(graphqlSchemaObj);
 server.listen().then(({ url }) => {
   console.log(`🚀  Server ready at ${url}`);
 });
-@@
+#+END_SRC
