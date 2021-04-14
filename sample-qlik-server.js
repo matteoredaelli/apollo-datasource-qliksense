@@ -7,7 +7,7 @@ const {
   typeDefs
 } = require("./apollo-datasource-qliksense");
 
-const qliksense_config = require("./qlik.json");
+const qliksense_config = require("./sample-qlik.json");
 
 var qliksenseDS = {};
 
