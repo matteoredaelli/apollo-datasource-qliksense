@@ -51,6 +51,37 @@ Sample graphql queries
 
 ```graphql
 {
+  qliksense_user(proxy: "qlik_default", filter: "userId eq matteo") {
+	name
+	id
+	groups
+	accessible_objects(resource_type: "Stream") {
+	  name
+	}
+  }
+}
+```
+
+```json
+{
+  "data": {
+	"qliksense_user": [
+	  {
+		"name": "Redaelli Matteo [matteo]",
+		"id": "11111-111-111111",
+		"groups": [
+		  "Qliksense_Professional_User",
+		  "Qliksense_User",
+		],
+		"accessible_objects": [
+		  {
+			"name": "Everyone"
+		  },
+	  ...
+```
+
+```graphql
+{
   qliksense_entity(
 	entity: "custompropertydefinition"
 	filter: "Name eq 'GroupAccess'"
