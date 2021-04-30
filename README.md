@@ -62,6 +62,36 @@ const server = new ApolloServer(graphqlSchemaObj);
 
 Sample graphql queries
 
+Generic queries
+
+```graphql
+{
+  u: qliksense_get(
+	proxy: "qlik_default"
+	path: "/qrs/user/full?filter=userId eq matteo"
+  ) {
+	__typename
+	... on QlikUser {
+	  name
+	}
+  },
+	d: qliksense_entity(
+	proxy: "qlik_default"
+	entity: "dataconnection"
+	filter: "name sw 'Ama'"
+  ) {
+	__typename
+	... on QlikDataConnection {
+	  name
+	}
+  }
+}
+
+"
+```
+
+Specific queries
+
 ```graphql
 {
   qliksense_user(proxy: "qlik_default", filter: "userId eq matteo") {
