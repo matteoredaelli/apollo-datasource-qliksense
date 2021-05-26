@@ -90,9 +90,10 @@ const typeDefs = gql`
     json: String
   }
   type QlikUserSession {
-    UserDirectory: String
-    UserId: String
-    SessionId: String
+    VirtualProxy: String!
+    UserDirectory: String!
+    UserId: String!
+    SessionId: String!
     Attributes: [String]
   }
   type QlikCustomProperty {
@@ -638,6 +639,12 @@ const typeDefs = gql`
     ): QlikLicenseAccessTypeOverview
     qliksense_stream(proxy: String!, id: String, filter: String): [QlikStream]
     qliksense_user(proxy: String!, id: String, filter: String): [QlikUser]
+    qliksense_user_sessions(
+      proxy: String!
+      virtualproxy: String = ""
+      user_directory: String!
+      user_id: String!
+    ): [QlikUserSession]
   }
 `;
 
@@ -778,6 +785,18 @@ const resolvers = {
     qliksense_healthcheck: async (_parent, { proxy }, context) => {
       const resp = await context.dataSources[proxy].getUrl("/healthcheck");
       return resp;
+    },
+    qliksense_user_sessions: async (
+      _parent,
+      { proxy, virtualproxy, user_directory, user_id },
+      context
+    ) => {
+      const url = `/qps/${virtualproxy}/user/${user_directory}/${user_id}`;
+      const resp = await context.dataSources[proxy].getUrl(url);
+      return resp.map((o) => {
+	o.VirtualProxy = virtualproxy;
+	return o;
+      });
     },
   },
 };

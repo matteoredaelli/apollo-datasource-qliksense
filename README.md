@@ -143,3 +143,43 @@ Specific queries
   }
 }
 ```
+
+Retreive user sessions
+
+```graphql
+query UserSessions(
+  $user_directory: String! = "MYDIR"
+  $user_id: String! = "matteo"
+) {
+  node1_azure: qliksense_user_sessions(
+	proxy: "qlik_node1_proxy"
+	virtualproxy: "azure"
+	user_directory: $user_directory
+	user_id: $user_id
+  ) {
+	...user_sessions
+  }
+  node1_default: qliksense_user_sessions(
+	proxy: "qlik_node1_proxy"
+	virtualproxy: ""
+	user_directory: $user_directory
+	user_id: $user_id
+  ) {
+	...user_sessions
+  }
+  node1_sf: qliksense_user_sessions(
+	proxy: "qlik_node1_proxy"
+	virtualproxy: "sf"
+	user_directory: $user_directory
+	user_id: $user_id
+  ) {
+	...user_sessions
+  }
+}
+fragment user_sessions on QlikUserSession {
+  VirtualProxy
+  SessionId
+  UserDirectory
+  UserId
+}
+```
