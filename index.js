@@ -89,7 +89,12 @@ const typeDefs = gql`
   type Json {
     json: String
   }
-
+  type QlikUserSession {
+    UserDirectory: String
+    UserId: String
+    SessionId: String
+    Attributes: [String]
+  }
   type QlikCustomProperty {
     id: ID!
     createdDate: String
@@ -226,7 +231,7 @@ const typeDefs = gql`
     publishTime: String
     published: Boolean
     description: String
-    stream: String
+    stream: QlikStreamSimple
     fileSize: Int
     lastReloadTime: String
     thumbnail: String
