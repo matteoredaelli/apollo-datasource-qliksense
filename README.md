@@ -183,3 +183,19 @@ fragment user_sessions on QlikUserSession {
   UserId
 }
 ```
+
+Delete a user session
+
+```graphql
+mutation DeleteUserSession(
+  $proxy: String! = "qlik_node1_proxy"
+  $virtualproxy: String! = "azuread"
+  $sessionid: String! = "1cfb353c-6664-4843-9e1b-74735f983311"
+) {
+  qliksense_delete_user_session(
+	proxy: $proxy
+	virtualproxy: $virtualproxy
+	sessionid: $sessionid
+  )
+}
+```

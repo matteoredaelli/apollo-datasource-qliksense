@@ -59,8 +59,13 @@ class QliksenseDataSource extends RESTDataSource {
     return resp;
   }
 
+  async deleteUrl(url, options = null) {
+    const resp = await this.delete(url, null, options);
+    console.log(resp);
+    return resp;
+  }
   async postUrl(url, body) {
-    const resp = await this.post(url, body); // {agent: self.sslConfiguredAgent});
+    const resp = await this.post(url, body);
     console.log(resp);
     return resp;
   }
@@ -205,6 +210,44 @@ const typeDefs = gql`
     operational: QlikOperational
     userDirectory: QlikUserDirectorySimple
     app: QlikAppSimple
+    customProperties: [QlikCustomProperty]
+  }
+
+  type QlikExternalProgramTask {
+    id: String
+    createdDate: String
+    modifiedDate: String
+    modifiedByUserName: String
+    path: String
+    parameters: String
+    qlikUser: String
+    name: String
+    taskType: Int
+    enabled: Boolean
+    taskSessionTimeout: Int
+    maxRetries: Int
+    privileges: String
+    schemaPath: String
+    tags: [String]
+    operational: QlikOperational
+    customProperties: [QlikCustomProperty]
+  }
+
+  type QlikUserSyncTask {
+    id: String
+    createdDate: String
+    modifiedDate: String
+    modifiedByUserName: String
+    name: String
+    taskType: Int
+    enabled: Boolean
+    taskSessionTimeout: Int
+    maxRetries: Int
+    privileges: String
+    schemaPath: String
+    tags: [String]
+    operational: QlikOperational
+    userDirectory: QlikUserDirectorySimple
     customProperties: [QlikCustomProperty]
   }
 
@@ -603,6 +646,7 @@ const typeDefs = gql`
   union QlikObject =
       QlikApp
     | QlikDataConnection
+    | QlikExternalProgramTask
     | QlikLicenseAccessTypeOverview
     | QlikLicenseAccessType
     | QlikReloadTask
@@ -610,7 +654,16 @@ const typeDefs = gql`
     | QlikTask
     | QlikTaskOperational
     | QlikUser
+    | QlikUserSyncTask
     | QlikProxyService
+
+  type Mutation {
+    qliksense_delete_user_session(
+      proxy: String!
+      virtualproxy: String = ""
+      sessionid: String!
+    ): String
+  }
 
   type Query {
     qliksense_get(proxy: String!, path: String!): [QlikObject]
@@ -797,6 +850,17 @@ const resolvers = {
 	o.VirtualProxy = virtualproxy;
 	return o;
       });
+    },
+  },
+  Mutation: {
+    qliksense_delete_user_session: async (
+      _parent,
+      { proxy, virtualproxy, sessionid },
+      context
+    ) => {
+      const url = `/qps/${virtualproxy}/session/${sessionid}`;
+      const resp = await context.dataSources[proxy].deleteUrl(url);
+      return JSON.stringify(resp);
     },
   },
 };
