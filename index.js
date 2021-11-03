@@ -101,6 +101,10 @@ const typeDefs = gql`
     SessionId: String!
     Attributes: [String]
   }
+  type QlikCount {
+    value: Int!
+  }
+
   type QlikCustomProperty {
     id: ID!
     createdDate: String
@@ -646,6 +650,7 @@ const typeDefs = gql`
 
   union QlikObject =
       QlikApp
+    | QlikCount
     | QlikDataConnection
     | QlikExternalProgramTask
     | QlikLicenseAccessTypeOverview
@@ -765,8 +770,11 @@ const resolvers = {
 	console.log("__resolveType: schemaPath=" + obj.schemaPath);
 	return "Qlik" + obj.schemaPath;
       }
-      if (obj.mem && obj.cpu) {
+      if (obj.hasOwnProperty("mem") && obj.hasOwnProperty("cpu")) {
 	return "QlikHealthCheck";
+      }
+      if (obj.hasOwnProperty("value")) {
+	return "QlikCount";
       } else return null;
       //switch (obj.schemaPath) {
       //case "User":
