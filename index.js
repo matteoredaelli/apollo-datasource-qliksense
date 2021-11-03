@@ -133,8 +133,10 @@ const typeDefs = gql`
     executingNodeName: String
     status: Int
     startTime: String
+    startTimeSecondsAgo: Float
     stopTime: String
-    stopTimeSecondsAgo: Int
+    stopTimeSecondsAgo: Float
+
     duration: Int
     fileReferenceID: String
     scriptLogAvailable: Boolean
@@ -742,6 +744,11 @@ const resolvers = {
     },
   },
   QlikLastExecutionResult: {
+    startTimeSecondsAgo: async (parent, args, { dataSources }) => {
+      const startTimeDate = Date.parse(parent.stopTime);
+      const now = Date.now();
+      return Math.round((now - startTimeDate) / 1000);
+    },
     stopTimeSecondsAgo: async (parent, args, { dataSources }) => {
       const stopTimeDate = Date.parse(parent.stopTime);
       const now = Date.now();
