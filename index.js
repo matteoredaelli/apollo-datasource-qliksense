@@ -130,6 +130,7 @@ const typeDefs = gql`
     status: Int
     startTime: String
     stopTime: String
+    stopTimeSecondsAgo: Int
     duration: Int
     fileReferenceID: String
     scriptLogAvailable: Boolean
@@ -733,6 +734,13 @@ const resolvers = {
       );
       const result = groups_sttributes.map((attr) => attr.attributeValue);
       return result;
+    },
+  },
+  QlikLastExecutionResult: {
+    stopTimeSecondsAgo: async (parent, args, { dataSources }) => {
+      const stopTimeDate = Date.parse(parent.stopTime);
+      const now = Date.now();
+      return Math.round((now - stopTimeDate) / 1000);
     },
   },
   QlikApps: {
