@@ -1,6 +1,6 @@
 {
   "name": "apollo-datasource-qliksense",
-  "version": "0.3.7",
+  "version": "0.3.9",
   "description": "Apollo datasource for Qliksense repository",
   "main": "index.js",
   "scripts": {
@@ -9,7 +9,7 @@
     "test": "jest"
   },
   "engines": {
-    "node": ">=10.6.0",
+    "node": ">=12.0.0",
     "npm": ">=6.1.0"
   },
   "repository": {
@@ -28,10 +28,10 @@
   },
   "homepage": "https://github.com/matteoredaelli/apollo-datasource-qliksense#README.md",
   "dependencies": {
-    "apollo-datasource-rest": "^3.3",
-    "apollo-server": "^3.4",
-    "apollo-server-plugin-response-cache": "^3.3",
-    "enigma.js": "^2.7.2",
+    "apollo-datasource-rest": "^3.4",
+    "apollo-server": "^3.5",
+    "apollo-server-plugin-response-cache": "^3.4",
+    "enigma.js": "^2.7.3",
     "ws": "^7.4.4"
   },
   "devDependencies": {

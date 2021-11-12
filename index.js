@@ -28,6 +28,16 @@ const getXrfKey = () => {
   return "1234567890123456";
 };
 
+const dateTimeStrSecondsAgo = (startTimeStr) => {
+  const startTimeDate = Date.parse(startTimeStr);
+  return dateTimeSecondsAgo(startTimeDate);
+};
+
+const dateTimeSecondsAgo = (startTimeDate) => {
+  const now = Date.now();
+  return Math.round((now - startTimeDate) / 1000);
+};
+
 class QliksenseDataSource extends RESTDataSource {
   constructor(baseurl, cert_file, key_file) {
     super();
@@ -132,6 +142,7 @@ const typeDefs = gql`
     value: Int
     executingNodeName: String
     status: Int
+    status_desc: String
     startTime: String
     startTimeSecondsAgo: Float
     stopTime: String
@@ -744,15 +755,43 @@ const resolvers = {
     },
   },
   QlikLastExecutionResult: {
+    status_desc: async (parent, args, { dataSources }) => {
+      switch (parent.status) {
+	case 0:
+	  return "NeverStarted";
+	case 1:
+	  return "Triggered";
+	case 2:
+	  return "Started";
+	case 3:
+	  return "Queued";
+	case 4:
+	  return "AbortInitiated";
+	case 5:
+	  return "Aborting";
+	case 6:
+	  return "Aborted";
+	case 7:
+	  return "FinishedSuccess";
+	case 8:
+	  return "FinishedFail";
+	case 9:
+	  return "Skipped";
+	case 10:
+	  return "Retry";
+	case 11:
+	  return "Error";
+	case 12:
+	  return "Reset";
+	default:
+	  return parent.status.toString();
+      }
+    },
     startTimeSecondsAgo: async (parent, args, { dataSources }) => {
-      const startTimeDate = Date.parse(parent.stopTime);
-      const now = Date.now();
-      return Math.round((now - startTimeDate) / 1000);
+      return dateTimeStrSecondsAgo(parent.startTime);
     },
     stopTimeSecondsAgo: async (parent, args, { dataSources }) => {
-      const stopTimeDate = Date.parse(parent.stopTime);
-      const now = Date.now();
-      return Math.round((now - stopTimeDate) / 1000);
+      return dateTimeStrSecondsAgo(parent.stopTime);
     },
   },
   QlikApps: {
