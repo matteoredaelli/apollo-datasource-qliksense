@@ -1,8 +1,0 @@
-{"certificate": "../../certificates/dev/client.pem",
- "certificate_key": "../../certificates/dev/client_key.pem",
- "urls": {
-     "qlik_default":   "https://dqlk04ww.applications.redaelli.org:4242",
-     "qlik_node1_rep": "https://dqlk01ww.applications.redaelli.org:4242",
-     "qlik_node1_eng": "https://dqlk01ww.applications.redaelli.org:4747"
- }
-}

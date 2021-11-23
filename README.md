@@ -8,19 +8,14 @@ npm install apollo-datasource-qliksense
 
 ### Usage
 
-See sample-qlik-server.js and sample-qlik.json in the source repository
+See sample-qlik-server.js  in the source repository
 
-Sample config file qlik.json
+Before you need to set some environments
 
-```json
-{"certificate": "../../certificates/dev/client.pem",
- "certificate_key": "../../certificates/dev/client_key.pem",
- "urls": {
-	 "qlik_default":   "https://qlk04ww.example.com:4242",
-	 "qlik_node1_rep": "https://qlk01ww.example.com:4242",
-	 "qlik_node1_eng": "https://qlk01ww.example.com:4747"
- }
-}
+```bash
+QLIKSENSE_CERTIFICATE="../../certificates/dev/client.pem"
+QLIKSENSE_CERTIFICATE_KEY= "certificate_key": "../../certificates/dev/client_key.pem"
+QLIKSENSE_URLS='{ "qlik_default":   "https://qlk04ww.example.com:4242", "qlik_node1_rep": "https://qlk01ww.example.com:4242", "qlik_node1_eng": "https://qlk01ww.example.com:4747" }'
 ```
 
 ```javascript
