@@ -20,7 +20,6 @@
  */
 
 const https = require("https");
-const fs = require("fs");
 const { RESTDataSource } = require("apollo-datasource-rest");
 const { gql } = require("apollo-server");
 
@@ -39,13 +38,13 @@ const dateTimeSecondsAgo = (startTimeDate) => {
 };
 
 class QliksenseDataSource extends RESTDataSource {
-  constructor(baseurl, cert_file, key_file) {
+  constructor(baseurl, cert, cert_key) {
     super();
     this.baseURL = baseurl;
     this.sslConfiguredAgent = new https.Agent({
       rejectUnauthorized: false, // (NOTE: this will disable client verification)
-      cert: fs.readFileSync(cert_file),
-      key: fs.readFileSync(key_file),
+      cert: cert,
+      key: cert_key,
       //passphrase: "YYY",
       keepAlive: false, // switch to true if you're making a lot of calls from this client
     });
@@ -813,7 +812,7 @@ const resolvers = {
   QlikObject: {
     __resolveType(obj, context, info) {
       if (obj.schemaPath) {
-	console.log("__resolveType: schemaPath=" + obj.schemaPath);
+	//console.log("__resolveType: schemaPath=" + obj.schemaPath);
 	return "Qlik" + obj.schemaPath;
       }
       if (obj.hasOwnProperty("mem") && obj.hasOwnProperty("cpu")) {
